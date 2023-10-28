@@ -7,6 +7,15 @@ end
 end
 return sk
 end
+function checkgs(gs)
+for i, v in pairs(game.Workspace.GhostMonster:GetChildren()) do
+if v.Name == "GhostShip" then
+gs = v.Name
+print(gs)
+end
+end
+return gs
+end
 if checksk() then
 HttpService = game:GetService("HttpService") 
  Webhook_URL =  "https://discord.com/api/webhooks/1167656906756739163/ijOqxu6LUTs1M2H5aiIYFdNS4efj15u3PHma-LC247FYEeG594V2Nlnz6uwl0la10xtp" 
@@ -27,6 +36,49 @@ HttpService = game:GetService("HttpService")
  }, 
  ["title"] = "Game ID: "..game.PlaceId, 
  ["description"] = "{ ["..game.Players.LocalPlayer.DisplayName.."] | "..game.Players.LocalPlayer.Name.." } Vừa Tìm Được Sea King", 
+ ["type"] = "rich", 
+ ["color"] = tonumber(0xffffff), 
+ ["fields"] = { 
+ { 
+ ["name"] = "🟢Nhấn Giữ Bên Dưới Để Copy Script:", 
+ ["value"] = "game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId,'"..game.JobId.."')", 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "Người Dùng ID:", 
+ ["value"] = game:GetService("Players").LocalPlayer.UserId, 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "🟢Join Game King LegacyNhấn Giữ Bên Dưới Để Copy Script:", 
+ ["value"] = "game:GetService('TeleportService'):Teleport("..game.PlaceId..")", 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "", 
+ ["value"] = "", 
+ ["inline"] = true } 
+ } 
+ }} 
+ }) 
+ })
+elseif checkgs() then
+HttpService = game:GetService("HttpService") 
+ Webhook_URL =  "https://discord.com/api/webhooks/1167656906756739163/ijOqxu6LUTs1M2H5aiIYFdNS4efj15u3PHma-LC247FYEeG594V2Nlnz6uwl0la10xtp" 
+ local ok = request or http_request or (http and http.request) or syn.request 
+ ok( 
+ { 
+ Url = Webhook_URL, 
+ Method = 'POST', 
+ Headers = { 
+ ['Content-Type'] = 'application/json' 
+ }, 
+ Body = HttpService:JSONEncode({ 
+ ["content"] = "", 
+ ["embeds"] = {{ 
+ ["author"] = { 
+ ["name"] = "King Legacy", 
+ ["icon"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..game.Players.LocalPlayer.UserId.."&width=100&height=100&format=png" 
+ }, 
+ ["title"] = "Game ID: "..game.PlaceId, 
+ ["description"] = "{ ["..game.Players.LocalPlayer.DisplayName.."] | "..game.Players.LocalPlayer.Name.." } Vừa Tìm Được Ghost Ship", 
  ["type"] = "rich", 
  ["color"] = tonumber(0xffffff), 
  ["fields"] = { 
