@@ -1,1 +1,89 @@
-a
+function checksk(sk)
+for i, v in pairs(game.Workspace.Island:GetChildren()) do
+if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" then
+sk = v.Name
+print(sk)
+end
+end
+return sk
+end
+if checksk() then
+HttpService = game:GetService("HttpService") 
+ Webhook_URL =  "https://discord.com/api/webhooks/1167656906756739163/ijOqxu6LUTs1M2H5aiIYFdNS4efj15u3PHma-LC247FYEeG594V2Nlnz6uwl0la10xtp" 
+ local ok = request or http_request or (http and http.request) or syn.request 
+ ok( 
+ { 
+ Url = Webhook_URL, 
+ Method = 'POST', 
+ Headers = { 
+ ['Content-Type'] = 'application/json' 
+ }, 
+ Body = HttpService:JSONEncode({ 
+ ["content"] = "", 
+ ["embeds"] = {{ 
+ ["author"] = { 
+ ["name"] = "King Legacy", 
+ ["icon"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..game.Players.LocalPlayer.UserId.."&width=100&height=100&format=png" 
+ }, 
+ ["title"] = "Game ID: "..game.PlaceId, 
+ ["description"] = "{ ["..game.Players.LocalPlayer.DisplayName.."] | "..game.Players.LocalPlayer.Name.." } Vừa Tìm Được Sea King", 
+ ["type"] = "rich", 
+ ["color"] = tonumber(0xffffff), 
+ ["fields"] = { 
+ { 
+ ["name"] = "🟢Nhấn Giữ Bên Dưới Để Copy Script:", 
+ ["value"] = "game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId,'"..game.JobId.."')", 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "Người Dùng ID:", 
+ ["value"] = game:GetService("Players").LocalPlayer.UserId, 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "🟢Join Game King LegacyNhấn Giữ Bên Dưới Để Copy Script:", 
+ ["value"] = "game:GetService('TeleportService'):Teleport("..game.PlaceId..")", 
+ ["inline"] = true }, 
+ { 
+ ["name"] = "", 
+ ["value"] = "", 
+ ["inline"] = true } 
+ } 
+ }} 
+ }) 
+ })
+end
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+local win = DiscordLib:Window("Test Hub")
+local serv = win:Server("King Legacy Check", "rbxasset://textures/ui/Chat/MessageCounter.png")
+local drops = serv:Channel("Check No Fix")
+local bug = nil
+local sk = game.Workspace.SeaMonster:FindFirstChild("SeaKing")
+local gs= game.Workspace.GhostMonster:FindFirstChild("GhostShip")
+local drop = drops:Dropdown("[Lưu Ý] Phải Chọn Để Ra Kết Quả Chính Xác",{"SeaKing","GhostShip"}, function(t)
+bug = t
+end)
+drops:Button("Check Boss Chooses", function(t)
+if bug == nil then
+DiscordLib:Notification("Thông Báo","Hãy Chọn Trước Khi Check","Ok")
+elseif bug == sk or game.Workspace.Island:FindFirstChild("Legacy Island2") or game.Workspace.Island:FindFirstChild("Legacy Island1") or game.Workspace.Island:FindFirstChild("Legacy Island3") then
+DiscordLib:Notification("Thông Báo","Sea King Already Here🟢","Ok")
+elseif bug == gs then
+DiscordLib:Notification("Thông Báo","Ghost Ship Already Here🟢","Ok")
+else
+DiscordLib:Notification("Thông Báo"," Không Có Boss Nào Ở Đây🔴 Hoặc Hãy Chọn Lại","Ok")
+end
+end)
+drops:Button("Teleport Chooses",function()
+if bug == nil then
+DiscordLib:Notification("Thông Báo","Hãy Chọn Trước Khi Teleport","Ok")
+elseif bug == "SeaKing" then
+for i, v in pairs(game.Workspace.Island:GetChildren()) do
+if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.WorldPivot*CFrame.new(0,80,0)
+end
+end
+end
+end)
+
+
+
+
