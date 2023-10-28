@@ -1,6 +1,6 @@
 function checksk(sk)
 for i, v in pairs(game.Workspace.Island:GetChildren()) do
-if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" then
+if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" or v.Name == "Legacy Island4" then
 sk = v.Name
 print(sk)
 end
@@ -48,7 +48,7 @@ HttpService = game:GetService("HttpService")
  ["value"] = game:GetService("Players").LocalPlayer.UserId, 
  ["inline"] = true }, 
  { 
- ["name"] = "🟢Join Game King LegacyNhấn Giữ Bên Dưới Để Copy Script:", 
+ ["name"] = "🟢Join Game King Legacy Nhấn Giữ Bên Dưới Để Copy Script:", 
  ["value"] = "game:GetService('TeleportService'):Teleport("..game.PlaceId..")", 
  ["inline"] = true }, 
  { 
@@ -109,32 +109,41 @@ local serv = win:Server("King Legacy Check", "rbxasset://textures/ui/Chat/Messag
 local drops = serv:Channel("Check No Fix")
 local bug = nil
 local sk = game.Workspace.SeaMonster:FindFirstChild("SeaKing")
-local gs= game.Workspace.GhostMonster:FindFirstChild("GhostShip")
-local drop = drops:Dropdown("[Lưu Ý] Phải Chọn Để Ra Kết Quả Chính Xác",{"SeaKing","GhostShip"}, function(t)
+local gs = game.Workspace.GhostMonster:FindFirstChild("GhostShip")
+local hd = game.Workspace.Island:FindFirstChild("Sea King Water")
+local drop = drops:Dropdown("[Lưu Ý] Phải Chọn Để Ra Kết Quả Chính Xác",{"SeaKing","GhostShip","Hydra"}, function(t)
 bug = t
 end)
 drops:Button("Check Boss Chooses", function(t)
 if bug == nil then
 DiscordLib:Notification("Thông Báo","Hãy Chọn Trước Khi Check","Ok")
-elseif bug == sk or game.Workspace.Island:FindFirstChild("Legacy Island2") or game.Workspace.Island:FindFirstChild("Legacy Island1") or game.Workspace.Island:FindFirstChild("Legacy Island3") then
+elseif bug == "SeaKing" and checksk() then
 DiscordLib:Notification("Thông Báo","Sea King Already Here🟢","Ok")
 elseif bug == gs then
 DiscordLib:Notification("Thông Báo","Ghost Ship Already Here🟢","Ok")
+elseif bug == "Hydra" and hd then
+DiscordLib:Notification("Thông Báo","Hydra Already Here🟢","Ok")
 else
-DiscordLib:Notification("Thông Báo"," Không Có Boss Nào Ở Đây🔴 Hoặc Hãy Chọn Lại","Ok")
+DiscordLib:Notification("Thông Báo"," Không Có Boss Ở Đây🔴 Hoặc Hãy Chọn Lại","Ok")
 end
 end)
-drops:Button("Teleport Chooses",function()
+drops:Button("Teleport Chooses (Only SeaKing Wait For Update)",function()
 if bug == nil then
 DiscordLib:Notification("Thông Báo","Hãy Chọn Trước Khi Teleport","Ok")
 elseif bug == "SeaKing" then
 for i, v in pairs(game.Workspace.Island:GetChildren()) do
-if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" then
+if v.Name == "Legacy Island3" or v.Name == "Legacy Island2" or v.Name == "Legacy Island1" or v.Name == "Legacy Island4" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.WorldPivot*CFrame.new(0,80,0)
 end
 end
 end
 end)
+
+
+
+
+
+
 
 
 
