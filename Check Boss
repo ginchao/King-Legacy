@@ -140,6 +140,118 @@ end
 end
 end
 end)
+ local tgls = serv:Channel("Player")   
+  local plrlist = {}  
+  local plr = nil  
+  for i, v in pairs(game:GetService("Players"):GetChildren()) do  
+  table.insert(plrlist,v.Name)  
+  end  
+  local drop = tgls:Dropdown("Choose Player", plrlist, function(m)  
+  for i, b in pairs(game:GetService("Players"):GetPlayers()) do  
+  if m == b.name then  
+  plr = m  
+  end  
+  end  
+  end)  
+  tgls:Button("Refresh Player", function()  
+  drop:Clear()  
+  for i, v in pairs(game.Players:GetChildren()) do  
+  drop:Add(v.Name)  
+  end  
+  end)  
+  tgls:Button("Teleport To Player", function()   
+  if plr == nil then  
+  DiscordLib:Notification("Warning", "Choose Player to Teleport Player", "Ok")  
+  elseif plr ~= nil then  
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[plr].Character.HumanoidRootPart.CFrame   
+  end  
+   end)   
+  tgls:Toggle("Spectate Player",false, function(h)  
+  if plr == nil then  
+  DiscordLib:Notification("Warning", "Choose Player to Spectate", "Ok")  
+  elseif plr ~= nil then  
+  getgenv().view = h  
+  spawn(function()  
+  while view do wait()  
+  workspace.CurrentCamera.CameraSubject = game.Players[plr].Character  
+  if view == false then  
+  workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character  
+  end  
+  end  
+  end)  
+  end  
+  end)  
+  
+   tgls:Toggle("Auto Teleport Player",false, function(t)   
+  if plr == nil then  
+  DiscordLib:Notification("Warning", "Choose Player to Auto Teleport Player", "Ok")  
+  elseif plr ~= nil then  
+    local v2 = nil 
+ getgenv().autele = t 
+ if v2 then a:Disconnect() end 
+ if autele ~= v2 then 
+ v2 = game.RunService.RenderStepped:Connect(function() 
+ if autele == false then v2:Disconnect() end game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[plr].Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 6) wait()   
+   end)   
+   end   
+   end 
+   end)   
+   tgls:Toggle("Auto Bring Player",false, function(a)   
+  if plr == nil then  
+  DiscordLib:Notification("Warning", "Choose Player to Bring Player", "Ok")  
+  elseif plr ~= nil then  
+   local v2 = nil 
+ getgenv().bri = a 
+ if v2 then a:Disconnect() end 
+ if bri ~= v2 then 
+ v2 = game.RunService.RenderStepped:Connect(function() 
+ if bri == false then v2:Disconnect() end game.Players[plr].Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5) wait()   
+   end)   
+  end  
+  end  
+   end)   
+   tgls:Toggle("Auto Tween Bring Player",false, function(p)   
+  if plr == nil then  
+  DiscordLib:Notification("Warning", "Choose Player to Tween Bring Player", "Ok")  
+  elseif plr ~= nil then  
+   getgenv().autobri = p   
+   spawn(function()   
+   while autobri do wait()   
+   pcall(function()   
+  
+   local ok = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)   
+   local tween = game.TweenService:Create(game.Players[plr].Character.HumanoidRootPart, TweenInfo.new(), {CFrame = ok * CFrame.new(0, 5, 0)})    
+   tween:Play() wait()   
+  
+   end)   
+   end   
+   end)   
+  end  
+   end)   
+   tgls:Toggle("Auto Bring All Player",false, function(t)   
+   local v2 = nil 
+ getgenv().brin = t 
+ if v2 then a:Disconnect() end 
+ if brin ~= v2 then 
+ v2 = game.RunService.RenderStepped:Connect(function() 
+ if brin == false then v2:Disconnect() end 
+  for i, v in pairs(game.Players:GetChildren()) do  
+  local ok = game.Players.LocalPlayer.Name  
+  if v.Name ~=  ok  then   
+  v.Character.HumanoidRootPart.CFrame  = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -7) wait()  
+  end  
+  end  
+  end)  
+  end  
+   end)   
+  tgls:Button("Rejoin", function()  
+  local tps = game:GetService("TeleportService")  
+                  local plr = game:GetService("Players").LocalPlayer  
+                  tps:TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)  
+          end)  
+  tgls:Button("Reset Character", function()   
+   game.Players.LocalPlayer.Character.Humanoid.Health = 0   
+   end)  
  local btns = serv:Channel("Mics")    
   btns:Textbox("Bug Report", "Type!", true, function(t)  
   if t then  
