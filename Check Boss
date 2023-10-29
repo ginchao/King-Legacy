@@ -140,6 +140,76 @@ end
 end
 end
 end)
+  local tgls = serv:Channel("UNIVERSAL Script")   
+  tgls:Toggle("Grabtools",false, function(I)  
+  getgenv().autograb = I  
+  spawn(function()  
+  while autograb==true do wait()  
+  if not getgenv().autograb then break end  
+  local humanoid = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")          
+  for _, child in ipairs(workspace:GetChildren()) do  
+  if game.Players.LocalPlayer.Character and child:IsA("BackpackItem") and child:FindFirstChild("Handle") then  
+  humanoid:EquipTool(child)  
+  end  
+  end  
+  end  
+  end)  
+  end)  
+   tgls:Toggle("Touch Grabtools",false, function(l)    
+    getgenv().grabtools = l    
+    spawn(function()    
+    while grabtools do wait()    
+    pcall(function()    
+    while grabtools do wait()    
+    spawn(function()    
+    for i, m in pairs(game.Workspace:GetChildren()) do    
+    if m.ClassName == "Tool" and m:FindFirstChild("Handle") then  firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, m.Handle, 1) wait()    
+  firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, m.Handle, 0) wait()    
+   if grabtools == false then break; end    
+   end    
+    end    
+    end)    
+    end    
+    end)    
+    end    
+    end)   
+   spawn(function()   
+   while wait() do   
+   if not getgenv().grabtools then break end   
+   for i, v in pairs(game:GetService("Workspace"):GetChildren()) do   
+   if v:FindFirstChild("ClickDetector") then   
+   fireclickdetector(v.ClickDetector) wait()   
+   end   
+   end   
+   end   
+   end)   
+    end)   
+  local inf = nil  
+  tgls:Toggle("Infjump", false, function(v)  
+  if inf then inf:Disconnect() end  
+  getgenv().infi = v  
+  local Player = game.Players.LocalPlayer  
+  if infi ~= inf then  
+  inf = game.UserInputService.JumpRequest:Connect(function()  
+  if infi == false then inf:Disconnect() end  
+      Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)  
+  wait()  
+  end)  
+  end  
+  end)  
+  tgls:Toggle("Auto Equip All", false, function(v)  
+  local plrmain = game.Players.LocalPlayer  
+  getgenv().equiptools = v  
+  if not getgenv().equiptools then plrmain.Character.Humanoid:UnequipTools() end  
+  while equiptools do wait() 
+  for i, v in pairs(game.Players.LocalPlayer:FindFirstChild("Backpack"):GetChildren()) do  
+  if v:IsA("Tool") or v:IsA("HopperBin") or v:IsA("BackpackItem") then  
+  v.Parent = plrmain.Character  
+  if equiptools == false then plrmain.Character.Humanoid:UnequipTools()  end  
+  end  
+  end  
+  end  
+  end) 
  local tgls = serv:Channel("Player")   
   local plrlist = {}  
   local plr = nil  
@@ -428,19 +498,7 @@ end)
                    tps:TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)   
            end)   
   
-   local inf = nil   
-   btns:Toggle("Infjump", false, function(v)   
-   if inf then inf:Disconnect() end   
-   getgenv().infi = v   
-   local Player = game.Players.LocalPlayer   
-   if infi ~= inf then   
-   inf = game.UserInputService.JumpRequest:Connect(function()   
-   if infi == false then inf:Disconnect() end   
-       Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)   
-   wait()   
-   end)   
-   end   
-   end)   
+  
    btns:Label("Cre Hub:Grabiel Ynu")   
    btns:Button("Universal, Test Hub", function()   
    loadstring(game:HttpGet("https://raw.githubusercontent.com/ginchao/TestHub/main/Universal"))()   
