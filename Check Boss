@@ -209,6 +209,22 @@ end)
   end  
   end  
   end  
+  end)
+ local Noclipping = nil  
+  tgls:Toggle("Noclip",false, function(v)  
+  getgenv().Clip = v  
+  wait(0.1)  
+  local function NoclipLoop()  
+  if Clip == true and game.Players.LocalPlayer.Character ~= nil then  
+  for _, c in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do  
+                                  if c:IsA("BasePart") and c.CanCollide == true and c.Name ~= floatName then  
+  c.CanCollide = false  
+  end  
+  end  
+  end  
+  end  
+  Noclipping = game.RunService.Stepped:Connect(NoclipLoop)  
+  if not getgenv().Clip then Noclipping:Disconnect() end  
   end) 
  local tgls = serv:Channel("Player")   
   local plrlist = {}  
