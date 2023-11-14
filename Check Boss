@@ -338,7 +338,7 @@ end)
   tgls:Button("Reset Character", function()   
    game.Players.LocalPlayer.Character.Humanoid.Health = 0   
    end)  
- local btns = serv:Channel("Mics")    
+ local btns = serv:Channel("Misc")    
   btns:Textbox("Bug Report", "Type!", true, function(t)  
   if t then  
   DiscordLib:Notification("Thông Báo","Tin Nhắn Đã Được Gửi.","Ok")  
