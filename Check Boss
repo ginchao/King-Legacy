@@ -140,6 +140,14 @@ end
 end
 end
 end)
+local drops = serv:Channel("LocalPlayer")
+drops:Button("Delete Effect",function()
+for i, v in pairs(game:GetService("ReplicatedStorage"): GetDescendants()) do
+if v:IsA("RemoteEvent") then
+v:Destroy()
+end
+end
+end)
   local tgls = serv:Channel("UNIVERSAL Script")   
   tgls:Toggle("Grabtools",false, function(I)  
   getgenv().autograb = I  
